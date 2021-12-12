@@ -66,4 +66,12 @@ public class ObjectPooler : Singleton<ObjectPooler>
         }
         return null;
     }
+
+    public void DeactivateAllPooledObjects()
+    {
+        foreach(GameObject item in pooledObjects)
+        {
+            item.SetActive(false);
+        }
+    }
 }

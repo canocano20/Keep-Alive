@@ -4,6 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _playerSpeed;
     [SerializeField] private Vector3 _sizeChangeVector;
+    [SerializeField] GameEvent _onGameEnded;
     private SpriteRenderer _mySpriteRendeder;
     private Animator _cameraAnimator;
 
@@ -27,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 destinationPosition = new Vector3(CameraPosition(), transform.position.y, transform.position.z);
         
         transform.position = Vector3.MoveTowards(transform.position, destinationPosition, _playerSpeed * Time.deltaTime);
+        
     }
 
     private float CameraPosition()
@@ -53,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
             if(transform.localScale.x < 0.1f)
 
             {
+                _onGameEnded.Raise();
                 GameManager.GetInstance().OnGameEnded();
                 CanvasManager.GetInstance().SwitchCanvas(CanvasType.EndMenu);
             }
@@ -70,13 +73,14 @@ public class PlayerMovement : MonoBehaviour
 
         if(other.CompareTag("Bad"))
         {
+            AudioManager.GetInstance().Play("Hit");
             ChangePlayerSize(false);
             ShakeAnimation();
         }   
         else if(other.CompareTag("Good"))
         {
-            ChangePlayerSize(true);
-            
+            AudioManager.GetInstance().Play("PickUp");
+            ChangePlayerSize(true);  
         } 
     }
     private void OnEnable() 

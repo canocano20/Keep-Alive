@@ -5,6 +5,7 @@ using TMPro;
 
 public class TimeCounter : MonoBehaviour
 {
+    [SerializeField] private SO_HoldTime _holdTime;
     private TextMeshProUGUI _timeText;
     private int _timer;
     private void Start() 
@@ -17,20 +18,30 @@ public class TimeCounter : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         _timer += 1;
-        _timeText.text = "Time: " + _timer;
+        _timeText.text = _timer.ToString();
 
         StartCoroutine(IncreaseTimer());
     }
 
     private void OnEnable()
     {
-        _timer = 0;    
-
+        _timer = 0;   
+    
         StartCoroutine(IncreaseTimer());
     }
 
-    private void OnDisable() 
+    public void OnGameEnded() 
     {
-        _timer = 0;    
+        _timeText.text = "0";
+
+        if(_timer != 0)
+            _holdTime.CurrentScore = _timer;
+
+        if(_holdTime.CurrentScore > _holdTime.HighScore)
+            _holdTime.HighScore = _holdTime.CurrentScore;
+        
+        _timer = 0;
     }
+
+    
 }
