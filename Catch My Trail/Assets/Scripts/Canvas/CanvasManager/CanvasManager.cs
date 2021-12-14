@@ -7,7 +7,9 @@ public enum CanvasType
 {
     MainMenu,
     GameMenu,
-    EndMenu
+    EndMenu,
+
+    CreditMenu
 }
 
 public class CanvasManager : Singleton<CanvasManager>

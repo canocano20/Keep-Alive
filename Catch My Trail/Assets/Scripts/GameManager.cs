@@ -7,10 +7,12 @@ public class GameManager : Singleton<GameManager>
     public GameObject player;
     public GameObject spawner;
 
+    [Header ("FPS")]
+    [SerializeField] private int _fps;
     private void Start()
     {
         AudioManager.GetInstance().Play("Background");
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = _fps;
     } 
     public void OnGameStart()
     {
