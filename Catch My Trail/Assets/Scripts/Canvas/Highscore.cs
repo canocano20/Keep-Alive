@@ -8,6 +8,11 @@ public class Highscore : MonoBehaviour
     {
         _myText = GetComponent<TextMeshProUGUI>();
 
+        SetText();
+    }
+
+    public void SetText()
+    {
         _myText.text = "High Score" + "\n" + GameManager.GetInstance().GetHighScore("HighScore");
     }
 
