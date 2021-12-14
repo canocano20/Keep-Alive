@@ -23,7 +23,7 @@ public class Scores : MonoBehaviour
     private void OnEnable()
     {
         if(_isHighScore)
-            SetTextMeshPro(_holdTime.HighScore);
+            SetTextMeshPro(GameManager.GetInstance().GetHighScore("HighScore"));
 
         else if(!_isHighScore)
             SetTextMeshPro(_holdTime.CurrentScore);

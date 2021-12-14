@@ -20,6 +20,12 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetButton("Fire1"))
         {
             PlayerMove();
+            
+        }
+        
+        if(Input.GetButtonDown("Fire1"))
+        {
+            PlayerRotate();
         }
     }
 
@@ -59,6 +65,18 @@ public class PlayerMovement : MonoBehaviour
                 GameManager.GetInstance().OnGameEnded();
                 CanvasManager.GetInstance().SwitchCanvas(CanvasType.EndMenu);
             }
+        }
+    }
+
+    private void PlayerRotate()
+    {
+        if(CameraPosition() < transform.position.x)
+        {
+            transform.localEulerAngles = new Vector3(0f, 180f, 0f);
+        }
+        else
+        {
+            transform.localEulerAngles = new Vector3(0f, 0f, 0f);
         }
     }
 

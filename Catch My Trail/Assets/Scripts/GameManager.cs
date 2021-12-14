@@ -23,4 +23,16 @@ public class GameManager : Singleton<GameManager>
         player.SetActive(false);
         spawner.SetActive(false);
     }
+
+
+    public void SetHighScore(string name ,int score)
+    {
+        PlayerPrefs.SetInt(name, score);
+    }
+
+    public int GetHighScore(string name)
+    {
+        int highScore = PlayerPrefs.GetInt(name);
+        return highScore;
+    }
 }

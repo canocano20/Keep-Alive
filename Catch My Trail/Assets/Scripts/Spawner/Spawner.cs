@@ -7,6 +7,14 @@ public class Spawner : MonoBehaviour
     [SerializeField] List<string> _spawnObjectsTag = new List<string>();
     [SerializeField] private float _timer;
     [SerializeField] private float _randomMax;
+    
+    [Header("Limits ")]
+    [SerializeField] private float _timerLimit;
+    [SerializeField] private float _randomMaxLimit;
+
+    [Header("Difficuaty Changes")]
+    [SerializeField] private float _timeDecreaseToSpawn;
+    [SerializeField] private float _randomOfBadObjectIncrease;
     private float _cameraXBound;
     
     private void OnEnable() 
@@ -14,8 +22,6 @@ public class Spawner : MonoBehaviour
         StartCoroutine(SpawnObject(_timer));
 
         _cameraXBound = Camera.main.orthographicSize * Screen.width / Screen.height;
-
-        _randomMax = 2f;
     }
 
     IEnumerator SpawnObject(float time)
@@ -30,9 +36,6 @@ public class Spawner : MonoBehaviour
 
     private void Spawn()
     {
-        /*Instantiate(_spawnObjects[Random.Range(0, _spawnObjects.Capacity)],
-                     new Vector3(Random.Range(-cameraXBound + 1, cameraXBound - 1), Camera.main.orthographicSize + 3, 0),
-                     _spawnObjects[0].transform.rotation);*/
 
         float randomness = Random.Range(0, _randomMax);
 
@@ -53,14 +56,14 @@ public class Spawner : MonoBehaviour
             pooledObject.SetActive(true);
         }
 
-        if(_timer > 0.15f)
+        if(_timer > _timerLimit)
         {
-            _timer -= 0.002f;
+            _timer -= _timeDecreaseToSpawn;
         
         }
-        if(_randomMax < 10f)
+        if(_randomMax < _randomMaxLimit)
         {
-            _randomMax += 0.03f;
+            _randomMax += _randomOfBadObjectIncrease;
         }
         
     }   

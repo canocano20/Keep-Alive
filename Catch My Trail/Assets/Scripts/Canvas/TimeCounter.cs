@@ -37,8 +37,8 @@ public class TimeCounter : MonoBehaviour
         if(_timer != 0)
             _holdTime.CurrentScore = _timer;
 
-        if(_holdTime.CurrentScore > _holdTime.HighScore)
-            _holdTime.HighScore = _holdTime.CurrentScore;
+        if(_holdTime.CurrentScore > GameManager.GetInstance().GetHighScore("HighScore"))
+            GameManager.GetInstance().SetHighScore("HighScore", _timer);
         
         _timer = 0;
     }
